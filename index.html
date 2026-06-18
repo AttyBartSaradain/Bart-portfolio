@@ -6,147 +6,135 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{
-    box-sizing:border-box;
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    height: 100vh;
+    display: flex;
 }
 
-body{
-    margin:0;
-    font-family:'Segoe UI',sans-serif;
-    height:100vh;
-    overflow:hidden;
+/* SIDEBAR */
+.sidebar {
+    width: 70px;
+    background: #111;
+    color: white;
+    padding: 10px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    overflow-y: auto;
 }
 
-/* FLOATING TOOLBAR */
-.toolbar{
-    position:fixed;
-    left:15px;
-    top:50%;
-    transform:translateY(-50%);
-    z-index:1000;
-
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-
-    padding:10px;
-    border-radius:25px;
-
-    background:rgba(17,17,17,0.65);
-    backdrop-filter:blur(8px);
-    box-shadow:0 4px 20px rgba(0,0,0,0.3);
+.sidebar h2 {
+    font-size: 11px;
+    text-align: center;
+    margin: 0 0 10px 0;
+    color: #ddd;
 }
 
-/* BUTTONS */
-.menu-item{
-    width:48px;
-    height:48px;
-    border-radius:50%;
-    background:#222;
-    color:white;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    font-weight:bold;
-    font-size:15px;
-    transition:all .25s ease;
-    border:1px solid #444;
-    user-select:none;
+/* CIRCULAR BUTTONS */
+.menu-item {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #222;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid #444;
+    user-select: none;
 }
 
-.menu-item:hover{
-    background:#0078ff;
-    transform:scale(1.1);
-    border-color:#5aa8ff;
-}
-
-.menu-item:active{
-    transform:scale(0.95);
+.menu-item:hover {
+    background: #0078ff;
+    transform: scale(1.08);
+    border-color: #4da3ff;
 }
 
 /* MAIN AREA */
-.main{
-    position:relative;
-    width:100vw;
-    height:100vh;
-    background:black;
+.main {
+    flex: 1;
+    position: relative;
+    background: black;
 }
 
-/* COVER */
-.cover{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    background:black;
+/* COVER IMAGE */
+.cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: black;
 }
 
 /* CONTENT */
-.content{
-    position:relative;
-    z-index:2;
-    width:100%;
-    height:100%;
-    overflow-y:auto;
-    padding:20px 30px 30px 90px;
-    background:rgba(255,255,255,0.97);
-    display:none;
+.content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    overflow-y: auto;
+    padding: 20px;
+    background: rgba(255,255,255,0.95);
+    display: none;
+    box-sizing: border-box;
 }
 
 /* EXIT BUTTON */
-.close-btn{
-    background:#d32f2f;
-    color:white;
-    border:none;
-    padding:10px 18px;
-    border-radius:6px;
-    cursor:pointer;
-    font-weight:bold;
-    margin-bottom:15px;
+.close-btn {
+    background: #d32f2f;
+    color: white;
+    padding: 8px 14px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-weight: bold;
 }
 
-.close-btn:hover{
-    background:#b71c1c;
+.close-btn:hover {
+    background: #b71c1c;
 }
 
 /* IMAGES */
-img{
-    width:100%;
-    margin-bottom:12px;
-    border-radius:8px;
+img {
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 6px;
 }
 
 /* PDF */
-iframe{
-    width:100%;
-    height:700px;
-    border:none;
-    margin-bottom:20px;
+iframe {
+    width: 100%;
+    height: 600px;
+    margin-bottom: 20px;
+    border: none;
+}
+
+/* VIDEO */
+video {
+    width: 100%;
 }
 
 /* MOBILE */
-@media(max-width:768px){
-
-    .toolbar{
-        left:8px;
-        gap:8px;
-        padding:8px;
+@media (max-width: 768px) {
+    .sidebar {
+        width: 60px;
     }
 
-    .menu-item{
-        width:40px;
-        height:40px;
-        font-size:12px;
+    .menu-item {
+        width: 40px;
+        height: 40px;
+        font-size: 12px;
     }
 
-    .content{
-        padding-left:65px;
-    }
-
-    iframe{
-        height:500px;
+    iframe {
+        height: 500px;
     }
 }
 </style>
@@ -154,31 +142,21 @@ iframe{
 
 <body>
 
-<!-- FLOATING TOOLBAR -->
-<div class="toolbar">
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2>DOCS</h2>
 
     <div class="menu-item" title="Endorsement" onclick="loadContent('A')">A</div>
-
     <div class="menu-item" title="Nomination" onclick="loadContent('B')">B</div>
-
     <div class="menu-item" title="Summary" onclick="loadContent('C')">C</div>
-
     <div class="menu-item" title="IPCR" onclick="loadContent('D')">D</div>
-
     <div class="menu-item" title="Clearances" onclick="loadContent('E')">E</div>
-
     <div class="menu-item" title="Accomplishments" onclick="loadContent('F')">F</div>
-
     <div class="menu-item" title="Awards" onclick="loadContent('G')">G</div>
-
     <div class="menu-item" title="Innovation" onclick="loadContent('H')">H</div>
-
     <div class="menu-item" title="Community" onclick="loadContent('I')">I</div>
-
     <div class="menu-item" title="Supporting Docs" onclick="loadContent('J')">J</div>
-
     <div class="menu-item" title="Video" onclick="loadContent('K')">K</div>
-
 </div>
 
 <!-- MAIN -->
@@ -187,103 +165,76 @@ iframe{
     <img src="assets/cover.jpg" class="cover" alt="Portfolio Cover">
 
     <div id="content" class="content">
-
-        <button class="close-btn" onclick="clearContent()">
-            EXIT
-        </button>
-
+        <button class="close-btn" onclick="clearContent()">EXIT</button>
         <div id="viewer"></div>
-
     </div>
 
 </div>
 
 <script>
-
-function loadContent(section){
-
+function loadContent(section) {
     let content = "";
 
-    if(section === "A"){
-        for(let i = 1; i <= 3; i++){
-            content += `
-                <img src="assets/A/${i}.jpg">
-            `;
+    if (section === "A") {
+        for (let i = 1; i <= 3; i++) {
+            content += `<img src="assets/A/${i}.jpg" alt="Endorsement ${i}">`;
         }
     }
 
-    if(section === "B"){
-        content += `
-            <iframe src="assets/B/file.pdf"></iframe>
-        `;
+    if (section === "B") {
+        content += `<iframe src="assets/B/file.pdf"></iframe>`;
     }
 
-    if(section === "C"){
-        content += `
-            <iframe src="assets/C/file.pdf"></iframe>
-        `;
+    if (section === "C") {
+        content += `<iframe src="assets/C/file.pdf"></iframe>`;
     }
 
-    if(section === "D"){
-        content += `
-            <iframe src="assets/D/file.pdf"></iframe>
-        `;
+    if (section === "D") {
+        content += `<iframe src="assets/D/file.pdf"></iframe>`;
     }
 
-    if(section === "E"){
-        content += `
-            <img src="assets/E/1.jpg">
-        `;
+    if (section === "E") {
+        content += `<img src="assets/E/1.jpg" alt="Clearance">`;
     }
 
-    if(section === "F"){
-        content += `
-            <iframe src="assets/F/F.pdf"></iframe>
-        `;
+    if (section === "F") {
+        content += `<iframe src="assets/F/F.pdf"></iframe>`;
     }
 
-    if(section === "G"){
-        content += `
-            <iframe src="assets/G/G.pdf"></iframe>
-        `;
+    if (section === "G") {
+        content += `<iframe src="assets/G/G.pdf"></iframe>`;
     }
 
-    if(section === "H"){
-        content += `
-            <iframe src="assets/H/H.pdf"></iframe>
-        `;
+    if (section === "H") {
+        content += `<iframe src="assets/H/H.pdf"></iframe>`;
     }
 
-    if(section === "I"){
-        content += `
-            <iframe src="assets/I/I.pdf"></iframe>
-        `;
+    if (section === "I") {
+        content += `<iframe src="assets/I/I.pdf"></iframe>`;
     }
 
-    if(section === "J"){
-        content += `
-            <iframe src="assets/J/J.pdf"></iframe>
-        `;
+    if (section === "J") {
+        content += `<iframe src="assets/J/J.pdf"></iframe>`;
     }
 
-    if(section === "K"){
+    if (section === "K") {
         content += `
         <iframe
             src="https://drive.google.com/file/d/1KKWWft3zxE6SA0sIzZht9-Wei3pidIjV/preview"
+            width="100%"
+            height="600"
             allow="autoplay">
-        </iframe>
-        `;
+        </iframe>`;
     }
 
     document.getElementById("viewer").innerHTML = content;
     document.getElementById("content").style.display = "block";
 }
 
-function clearContent(){
+function clearContent() {
     document.getElementById("viewer").innerHTML = "";
     document.getElementById("content").style.display = "none";
 }
-
 </script>
 
 </body>
