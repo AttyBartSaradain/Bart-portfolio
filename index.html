@@ -33,7 +33,6 @@ body {
     color: #ddd;
 }
 
-/* CIRCULAR BUTTONS */
 .menu-item {
     width: 45px;
     height: 45px;
@@ -44,36 +43,31 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.2s ease;
-    font-size: 14px;
+    transition: 0.2s;
     font-weight: bold;
     border: 1px solid #444;
-    user-select: none;
 }
 
 .menu-item:hover {
     background: #0078ff;
     transform: scale(1.08);
-    border-color: #4da3ff;
 }
 
-/* MAIN AREA */
+/* MAIN */
 .main {
     flex: 1;
     position: relative;
     background: black;
 }
 
-/* COVER IMAGE */
 .cover {
     position: absolute;
     width: 100%;
     height: 100%;
     object-fit: contain;
-    background-color: black;
+    background: black;
 }
 
-/* CONTENT */
 .content {
     position: relative;
     z-index: 2;
@@ -85,7 +79,6 @@ body {
     box-sizing: border-box;
 }
 
-/* EXIT BUTTON */
 .close-btn {
     background: #d32f2f;
     color: white;
@@ -97,134 +90,110 @@ body {
     font-weight: bold;
 }
 
-.close-btn:hover {
-    background: #b71c1c;
-}
-
-/* IMAGES */
-img {
+img, iframe {
     width: 100%;
     margin-bottom: 10px;
     border-radius: 6px;
-}
-
-/* PDF */
-iframe {
-    width: 100%;
-    height: 600px;
-    margin-bottom: 20px;
     border: none;
 }
 
-/* VIDEO */
-video {
-    width: 100%;
+iframe {
+    height: 600px;
 }
 
-/* MOBILE */
 @media (max-width: 768px) {
-    .sidebar {
-        width: 60px;
-    }
-
-    .menu-item {
-        width: 40px;
-        height: 40px;
-        font-size: 12px;
-    }
-
-    iframe {
-        height: 500px;
-    }
+    iframe { height: 500px; }
 }
+
+/* mobile detection handled in JS */
 </style>
 </head>
 
 <body>
 
-<!-- SIDEBAR -->
 <div class="sidebar">
-    <h2>DOCS</h2>
+<h2>DOCS</h2>
 
-    <div class="menu-item" title="Endorsement" onclick="loadContent('A')">A</div>
-    <div class="menu-item" title="Nomination" onclick="loadContent('B')">B</div>
-    <div class="menu-item" title="Summary" onclick="loadContent('C')">C</div>
-    <div class="menu-item" title="IPCR" onclick="loadContent('D')">D</div>
-    <div class="menu-item" title="Clearances" onclick="loadContent('E')">E</div>
-    <div class="menu-item" title="Accomplishments" onclick="loadContent('F')">F</div>
-    <div class="menu-item" title="Awards" onclick="loadContent('G')">G</div>
-    <div class="menu-item" title="Innovation" onclick="loadContent('H')">H</div>
-    <div class="menu-item" title="Community" onclick="loadContent('I')">I</div>
-    <div class="menu-item" title="Supporting Docs" onclick="loadContent('J')">J</div>
-    <div class="menu-item" title="Video" onclick="loadContent('K')">K</div>
+<div class="menu-item" onclick="loadContent('A')">A</div>
+<div class="menu-item" onclick="loadContent('B')">B</div>
+<div class="menu-item" onclick="loadContent('C')">C</div>
+<div class="menu-item" onclick="loadContent('D')">D</div>
+<div class="menu-item" onclick="loadContent('E')">E</div>
+<div class="menu-item" onclick="loadContent('F')">F</div>
+<div class="menu-item" onclick="loadContent('G')">G</div>
+<div class="menu-item" onclick="loadContent('H')">H</div>
+<div class="menu-item" onclick="loadContent('I')">I</div>
+<div class="menu-item" onclick="loadContent('J')">J</div>
+<div class="menu-item" onclick="loadContent('K')">K</div>
 </div>
 
-<!-- MAIN -->
 <div class="main">
+<img src="assets/cover.jpg" class="cover">
 
-    <img src="assets/cover.jpg" class="cover" alt="Portfolio Cover">
-
-    <div id="content" class="content">
-        <button class="close-btn" onclick="clearContent()">EXIT</button>
-        <div id="viewer"></div>
-    </div>
-
+<div id="content" class="content">
+<button class="close-btn" onclick="clearContent()">EXIT</button>
+<div id="viewer"></div>
+</div>
 </div>
 
 <script>
+function isIOS() {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent);
+}
+
+function showPDF(path) {
+    if (isIOS()) {
+        return `<a href="${path}" target="_blank"
+        style="display:block;padding:12px;background:#0078ff;color:white;
+        text-align:center;border-radius:6px;margin-bottom:10px;
+        text-decoration:none;font-weight:bold;">
+        📄 Open PDF
+        </a>`;
+    }
+    return `<iframe src="${path}"></iframe>`;
+}
+
 function loadContent(section) {
     let content = "";
 
-    if (section === "A") {
-        for (let i = 1; i <= 3; i++) {
-            content += `<img src="assets/A/${i}.jpg" alt="Endorsement ${i}">`;
-        }
-    }
-
-    if (section === "B") {
-        content += `<iframe src="assets/B/file.pdf"></iframe>`;
-    }
-
-    if (section === "C") {
-        content += `<iframe src="assets/C/file.pdf"></iframe>`;
-    }
-
-    if (section === "D") {
-        content += `<iframe src="assets/D/file.pdf"></iframe>`;
-    }
-
-    if (section === "E") {
-        content += `<img src="assets/E/1.jpg" alt="Clearance">`;
-    }
-
-    if (section === "F") {
-        content += `<iframe src="assets/F/F.pdf"></iframe>`;
-    }
-
-    if (section === "G") {
-        content += `<iframe src="assets/G/G.pdf"></iframe>`;
-    }
-
-    if (section === "H") {
-        content += `<iframe src="assets/H/H.pdf"></iframe>`;
-    }
-
-    if (section === "I") {
-        content += `<iframe src="assets/I/I.pdf"></iframe>`;
-    }
-
-    if (section === "J") {
-        content += `<iframe src="assets/J/J.pdf"></iframe>`;
-    }
-
-    if (section === "K") {
-        content += `
-        <iframe
-            src="https://drive.google.com/file/d/1KKWWft3zxE6SA0sIzZht9-Wei3pidIjV/preview"
-            width="100%"
-            height="600"
-            allow="autoplay">
-        </iframe>`;
+    switch(section) {
+        case "A":
+            for (let i=1;i<=3;i++) {
+                content += `<img src="assets/A/${i}.jpg">`;
+            }
+            break;
+        case "B":
+            content += showPDF("assets/B/file.pdf");
+            break;
+        case "C":
+            content += showPDF("assets/C/file.pdf");
+            break;
+        case "D":
+            content += showPDF("assets/D/file.pdf");
+            break;
+        case "E":
+            content += `<img src="assets/E/1.jpg">`;
+            break;
+        case "F":
+            content += showPDF("assets/F/F.pdf");
+            break;
+        case "G":
+            content += showPDF("assets/G/G.pdf");
+            break;
+        case "H":
+            content += showPDF("assets/H/H.pdf");
+            break;
+        case "I":
+            content += showPDF("assets/I/I.pdf");
+            break;
+        case "J":
+            content += showPDF("assets/J/J.pdf");
+            break;
+        case "K":
+            content += `<iframe src="https://drive.google.com/file/d/1KKWWft3zxE6SA0sIzZht9-Wei3pidIjV/preview"></iframe>`;
+            break;
+        default:
+            content = "<p>No content found</p>";
     }
 
     document.getElementById("viewer").innerHTML = content;
